@@ -1,46 +1,25 @@
-import * as ActionTypes from './actionTypes';
+import { handleActions } from 'redux-actions';
+import {
+  addTodo,
+  toggleTodo,
+  removeTodo,
+  clearCompleted,
+  editTodo
+} from './actions';
 
-export default (state = [], action) => {
-  // console.log(state, action);
-  switch (action.type) {
+export default handleActions({
+  [addTodo]: (state, {payload}) => ([
+    ...state, payload
+  ]),
 
-    case ActionTypes.ADD_TODO:
-      return [
-        {
-          id: action.id,
-          title: action.title,
-          completed: action.completed,
-        },
-        ...state
-      ];
+  [toggleTodo]: (state, {payload: {id}}) => state.map(item => (
+    item.id === id ? {...item, completed: !item.completed} : item
+  )),
 
-    case ActionTypes.TOGGLE_TODO:
-      return state.map(item => {
-        if (item.id === action.id) {
-          return {...item, completed: !item.completed}
-        } else {
-          return item;
-        }
-      });
+  [removeTodo]: (state, {payload: {id}}) => state.filter(item => item.id !== id),
 
-    case ActionTypes.REMOVE_TODO:
-      return state.filter(item => {
-        return item.id !== action.id;
-      });
+  [clearCompleted]: (state) => state.filter(item => !item.completed),
 
-    case ActionTypes.CLEAR_COMPLETED:
-      return state.filter(item => !item.completed);
+  [editTodo]: (state, {payload: {id, title}}) => state.map(item => (item.id === id) ? {...item, title} : item)
 
-    case ActionTypes.EDIT_TODO:
-      return state.map(item => {
-        if (item.id === action.id) {
-          return {...item, title: action.title};
-        } else {
-          return item;
-        }
-      });
-
-    default:
-      return state;
-  }
-}
+}, []);

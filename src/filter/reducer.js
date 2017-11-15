@@ -1,11 +1,8 @@
-import { FILTER_ALL } from '../constants';
-import { SET_FILTER } from './actionTypes';
+import { handleActions } from 'redux-actions';
 
-export default (state = FILTER_ALL, action) => {
-  switch (action.type) {
-    case SET_FILTER:
-      return action.filter;
-    default:
-      return state;
-  }
-}
+import { FILTER_ALL } from '../constants';
+import { setFilter } from './actions';
+
+export default handleActions({
+  [setFilter]: (state, {payload: {filter}}) => filter,
+}, FILTER_ALL);

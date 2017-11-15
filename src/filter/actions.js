@@ -1,6 +1,3 @@
-import { SET_FILTER } from './actionTypes';
+import { createAction } from 'redux-actions';
 
-export const setFilter = (filter) => ({
-  type: SET_FILTER,
-  filter
-});
+export const setFilter = createAction('FILTER/SET', filter => ({ filter }));

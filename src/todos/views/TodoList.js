@@ -28,4 +28,4 @@ const mapStateToProps = (state) => ({
   todos: getVisibleTodos(state),
 });
 
-export default connect(mapStateToProps, null)(TodoList);
+export default connect(mapStateToProps)(TodoList);
