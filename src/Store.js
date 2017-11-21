@@ -1,11 +1,12 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import ReduxThunk from 'redux-thunk';
+import promiseMiddleware from 'redux-promise-middleware';
 import ReduxImmutableStateInvariant from 'redux-immutable-state-invariant';
 
 import { reducer as todoReducer } from './todos'
 import { reducer as filterReducer } from './filter';
 
-const middlewares = [ReduxThunk];
+const middlewares = [ReduxThunk, promiseMiddleware()];
 if (process.env.NODE_ENV !== 'production') {
   middlewares.push(ReduxImmutableStateInvariant());
 }

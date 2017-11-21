@@ -72,7 +72,7 @@ class TodoItem extends Component {
     return (
       <li className={classNames({completed, editing})}>
         <div className="view">
-          <input className="toggle" type="checkbox" onClick={() => onToggle(id)} />
+          <input className="toggle" type="checkbox" onClick={() => onToggle(id, !completed)} />
           <label onDoubleClick={this.handleEditing}>{title}</label>
           <button className="destroy" onClick={() => onRemove(id)} />
         </div>
